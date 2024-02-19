@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\HomeController;
 // use App\Models\User;
 
 /*
@@ -44,14 +45,23 @@ use Illuminate\Http\Request;
 // });
 // Route::redirect('unicode','show-form', 404);
 // Route::view('show-form','form');
+Route::get('/','App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/tin-tuc','HomeController@getNew')->name('new');
+Route::get('chuyen-muc/{id}',[HomeController::class,'getCategories']);
+
 Route::prefix('admin')->group(function(){
-    Route::get('unicode', function () {
-        return 'Phương thức get của patch của unicode';
-    });
+    Route::get('tin-tuc/{id?}/{slug?}.html', function ($id=null, $slug=null) {
+        $content= 'Phương thức get của patch của unicode có tham số: ';
+        $content.=' id='.$id .'<br/>';
+        $content.=' slug='.$slug;
+        return $content;
+    })->where('id','\d+')->where('slug','.+')->name('admin.tintuc');
+
+
     Route::get('show-form',function(){
         return view('form');
-    });
-    Route::prefix('products')->group(function(){
+    })->name('admin.show-form');
+    Route::prefix('products')->middleware('CheckPermission')->group(function(){
         Route::get('/',function(){
             return 'Danh sách sản phẩm';
         });
