@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class ProductsController extends Controller
 {
+    public function __construct()
+    {
+        //echo 'Khỏi động product';
+        //Sử dụng session để check login
+    }
     /**
      * Display a listing of the resource.
      *
