@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 // use App\Models\User;
 
 /*
@@ -20,9 +21,7 @@ use App\Http\Controllers\DashboardController;
 */
 
 // Client router
-Route::get('/',function(){
-    return '<h1 style="text-align: center;">TRANG CHỦ UNICODE</h1>';
-})->name('home');
+Route::get('/',[HomeController::class,'index'])->name('home');
 Route::prefix('categories')->group(function(){
     //Danh sách chuyên mục
     Route::get('/',[CategoriesController::class,'index'])->name('categories.list');
@@ -42,6 +41,7 @@ Route::prefix('categories')->group(function(){
     //Xóa chuyên mục
     Route::delete('/delete/{id}',[CategoriesController::class,'deleteCategory'])->name('categories.delete');
 });
+Route::get('san-pham/{id}',[HomeController::class,'getProductDetail']);
 //Admin route
 Route::middleware('auth.admin')->prefix('admin')->group(function(){
     Route::get('/',[AdminDashboardController::class,'index']);
