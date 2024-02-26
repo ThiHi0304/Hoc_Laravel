@@ -40,14 +40,19 @@ class CategoriesController extends Controller
         // $id=$request->input('id');
         // echo $id;
         // $id=$request->input('id.*.name');
-        // $id=$request->id;
+        //$id=$request->id;
         // $name=$request->name;
         // dd($name);
         // dd($request)->id;
         // $id=$request('id');
-        // dd($id);
-        $name=$request('name','Unicode');
-        dd($name);
+        //$id=$request->query('id');
+        //dd($id);
+
+        $query = $request->query();
+        dd($query);
+        
+        // $name=$request('name','Unicode');
+        // dd($name);
         return view('clients/categories/list');
     }
     //Lấy ra 1 chuyên mục trong id(Phương thức GET)
@@ -61,8 +66,10 @@ class CategoriesController extends Controller
     }
     //Show form thêm dữ liệu
     public function addCategory(Request $request){
-        $path =$request->path();
-        echo $path;
+        // $path =$request->path();
+        // echo $path;
+        $cateName=$request->old('category_name','Mặc định');
+        echo $cateName;
         return view('clients/categories/add');
 
     }
@@ -70,15 +77,51 @@ class CategoriesController extends Controller
     public function handleAddCategory(Request $request){
         // $allData=   $request->all();
         // dd($allData);
-        if($request->isMethod('POST')){
-            echo 'Phương thức POST';
-        }
+        // if($request->isMethod('POST')){
+        //     echo 'Phương thức POST';
+        // }
         //print_r ($_POST);
         //return redirect(route('categories.add'));
        // return 'Submit thêm chuyên mục';
+       //$cateName=$request->query();
+       if($request->has('category_name')){
+            $cateName=$request->category_name;
+            $request->flash();//Set session flash
+            return redirect(route('categories.add'));
+       }else{
+        return "Không có Category_name";
+       }
     }
     //Xóa dữ liệu Delete phương thức DELETE
     public function deleteCategory($id){
         return 'Submit xóa chuyên mục'.$id;
+    }
+    public function getFile(){
+        return view('clients/categories/file');
+    }
+    //Xử lí lấy thông tin file
+    public function handleFile(Request $request){
+        // $file=$request->file('photo');
+        if ($request->hasFile('photo')) {
+            if ($request->photo->isValid()) {
+                $title = $request->photo;
+                // $path = $request->photo->path();
+                 $ext = $request->photo->extension();
+                // $path = $request->photo->store('images');
+                // $path = $request->photo->store('file-txt','local');
+                // $path = $request->photo->storeAs('file-txt','khoa-hoc.txt');
+                //$fileName=$title->getClientOriginalName();
+                //Đổi tên
+                $fileName=md5(uniqid()).''.$ext;
+                dd($fileName);
+            } else {
+                return "Upload không thành công";
+            }
+        } else {
+            return "Vui lòng chọn file";
+        }
+         
+        
+        // dd($file);
     }
 }
