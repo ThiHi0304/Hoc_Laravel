@@ -3,12 +3,16 @@
 <div class="container">
     {{!!empty($content)?$content:false!!}}
 </div>
+@php
+    // $messege='Đặt hàng thành công';
+@endphp
+@include('parts.notice');
 <hr>
-<!-- @for($i=1;$i<=10;$i++)
+{{-- <!-- @for($i=1;$i<=10;$i++)
     <p>Phần tử thứ: {{$i}}</p>
-@endfor -->
+@endfor --> --}}
 
-<!-- @while($index <= 10)
+{{-- <!-- @while($index <= 10)
     <p>Phần tử thứ: {{ $index }}</p>
     @php
         $index++;
@@ -62,9 +66,29 @@
     @endif
 @endfor -->
 
-@for($i=1;$i<=10;$i++)
+<!-- @for($i=1;$i<=10;$i++)
     <p>Phần tử thứ {{$i}}</p>
     @if($i==5)
         @continue
     @endif
+@endfor -->
+
+
+
+@for($index=0;$index< 10;$index++)
+<p>Phần tử: {{$index}}</p>
 @endfor
+<hr>
+<?php 
+// for($index=0;$index<10;$index++){
+//     echo '<p>Phần tử: '.$index.'</p>';
+// }
+?> --}}
+
+{{-- @verbatim
+<script>
+    Hello {{name}}
+    hi {{age}}
+</script>
+@endverbatim --}}
+
