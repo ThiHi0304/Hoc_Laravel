@@ -33,5 +33,6 @@
     <script>{{asset('assets/clients/js/boostrap.min.css')}}</script>
     <script>{{asset('assets/clients/js/custom.css')}}</script>
     @yield('js')    
+    @stack('scripts')
 </body>
 </html>
