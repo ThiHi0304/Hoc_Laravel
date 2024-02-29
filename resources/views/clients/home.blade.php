@@ -1,31 +1,19 @@
-@extends('layouts.client');
+@extends('layouts.client')
 @section('title')
     {{$title}}
 @endsection
 
 @section('sidebar')
-<!-- @parent -->
-<h3>Home sidebar</h3>
+    <h3>Home sidebar</h3>
 @endsection
 
 @section('content')
-<h1>Trang chủ</h1>
-<button type="button" class="show" >Show</button>
+    <h1>Trang chủ</h1>
+    @include('clients.contents.slide')
+    @include('clients.contents.about')
 @endsection
 
 @section('css')
-<style>
-    header{
-    background:blue;
-    color:#fff;
-    } 
-</style>
+
 @endsection
 
-@section('js')
-<script>
-     document.querySelector('.show').onclick= function(){
-    alert('Thành công')
- }
-</script>
- @endsection

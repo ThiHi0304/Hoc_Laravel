@@ -4,7 +4,7 @@
 @endsection
 
 @section('sidebar')
-<!-- @parent -->
+    @parent 
 <h3>Product sidebar</h3>
 @endsection
 
@@ -13,12 +13,6 @@
 @endsection
 
 @section('css')
-<style>
-    header{
-    background:yellow;
-    color:#333;
-    } 
-</style>
 @endsection
 
 {{-- @section('js')

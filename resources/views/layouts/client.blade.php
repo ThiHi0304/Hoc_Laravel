@@ -4,25 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')- Unicode</title>
+    <link rel="stylesheet" href="{{asset('assets/clients/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/clients/css/style.css')}}">
     @yield('css')
 </head>
 <body>
-    <header>
-        <h1>HEADER</h1>
-    </header>
-    <main>
-        <aside>
-            @section('sidebar')
-                @include('clients.blocks.sidebar')
-            @endsection
-        </aside>
+   @include('clients.blocks.header')
+    <main class="py-5">
         <div class="container">
-            @yield('content')
+            <div class="row">
+                <div class="col-4">
+                    @yield('sidebar')
+                    <aside>
+                        @section('sidebar')
+                            @include('clients.blocks.sidebar')
+                        @endsection
+                    </aside>
+                </div>
+                <div class="col-8">
+                    <div class="content">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-    <footer>
-        <h1>FOOTER</h1>
-    </footer>
+    @include('clients.blocks.footer')
+    <script>{{asset('assets/clients/js/boostrap.min.css')}}</script>
+    <script>{{asset('assets/clients/js/custom.css')}}</script>
     @yield('js')    
 </body>
 </html>
