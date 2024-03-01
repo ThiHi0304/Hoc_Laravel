@@ -19,6 +19,10 @@
     @else
     <p>Môi trường dev</p>
     @endenv
+    <x-alert type="info" :content="$message" data-icon="youtube" />
+    {{-- <x-inputs.button />
+
+    <x-forms.button /> --}}
 @endsection
 
 @section('css')
