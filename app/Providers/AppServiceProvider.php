@@ -35,6 +35,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::if('env', function($value) {
+            if(config('app.env') === $value) {
+                return true;
+            }
+            return false;
+        });
+        
     }
 }
