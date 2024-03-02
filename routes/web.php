@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProductsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -56,6 +57,42 @@ Route::get('/san-pham',[HomeController::class,'products'])->name('product');
 Route::get('/them-san-pham',[HomeController::class,'getAdd']);
 // Route::post('/them-san-pham',[HomeController::class,'postAdd']);
 Route::put('/them-san-pham',[HomeController::class,'putAdd']);
+// Route::get('/demo-response', function(){
+//     $contentArr=[
+//         'name'=>'Học lập trình',
+//         'age'=>'Học lập trình',
+//         'acdemy'=>'Học lập trình'
+//     ];
+//     return $contentArr;
+// });
+Route::get('/lay-thong-tin',[HomeController::class,'getArr']);
+// Route::get('/demo-response', function(){
+    // $content='<h2>Học lập trình</h2>';
+    // $content='Học lập trình';
+    // $content = json_decode(json_encode([
+    //     'Item 1',
+    //     'Item 1',
+    //     'Item 1'
+    // ]));
+    // $response=(new Response($content))->header('Content-type','text/plain');
+    // $response=(new Response($content))->header('Content-type','aplication/json');
+    $response=(new Response())->cookie('unicode','Training',30);
+    // dd($response);
+    // $response=response('HỌC LẬP TRÌNH',201);
+    // return new Response('HỌC LẬP TRÌNH',201);
+//     return $response;
+// });
+Route::get('demo-response-2', function(Request $request){
+    return $request->cookie('unicode');
+});
+Route::get('demo-response', function(){
+    $response=response()->view('clients.demo-test',[
+        'title'=>'Học lập trình',
+
+    ],201)->header('Content-type','aplication/json');
+
+    return $response;
+});
 // Route::middleware('auth.admin')->prefix('categories')->group(function(){
 //     //Danh sách chuyên mục
 //     Route::get('/',[CategoriesController::class,'index'])->name('categories.list');

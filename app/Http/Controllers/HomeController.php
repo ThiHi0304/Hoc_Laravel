@@ -28,7 +28,16 @@ class HomeController extends Controller
         return "Phương thức put";
         dd($request);
     }
+    public function getArr(){
+        $contentArr=[
+            'name'=>'Học lập trình',
+            'age'=>'Học lập trình',
+            'acdemy'=>'Học lập trình'
+        ];
+        return $contentArr;
     }
+    }
+
     // public function getNew(){
     //     return 'Danh sách tin tức ';
     // }
