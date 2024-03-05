@@ -9,6 +9,8 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormController;
+use Illuminate\Support\Facades\Redis;
+
 // use App\Models\User;
 /*
 |--------------------------------------------------------------------------
@@ -50,13 +52,22 @@ use App\Http\Controllers\FormController;
 //    return view('form');
 
 // });
+//Bài 1:
+// Route::post('/post', [FormController::class, 'post']);
+// Route::get('/', function (){
+//     return view('FormLogin');
+//  });
+//Bài 2:
+// Route::get('/', function (){
+//     return view('formUpload');
+//  });
+// Route::post('/',[FormController::class,'upload'])->name('form');
 
-
-Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/san-pham',[HomeController::class,'products'])->name('product');
-Route::get('/them-san-pham',[HomeController::class,'getAdd']);
-// Route::post('/them-san-pham',[HomeController::class,'postAdd']);
-Route::put('/them-san-pham',[HomeController::class,'putAdd']);
+// Route::get('/',[HomeController::class,'index'])->name('home');
+// Route::get('/san-pham',[HomeController::class,'products'])->name('product');
+// Route::get('/them-san-pham',[HomeController::class,'getAdd']);
+// // Route::post('/them-san-pham',[HomeController::class,'postAdd']);
+// Route::put('/them-san-pham',[HomeController::class,'putAdd']);
 // Route::get('/demo-response', function(){
 //     $contentArr=[
 //         'name'=>'Học lập trình',
@@ -65,33 +76,24 @@ Route::put('/them-san-pham',[HomeController::class,'putAdd']);
 //     ];
 //     return $contentArr;
 // });
-Route::get('/lay-thong-tin',[HomeController::class,'getArr']);
-// Route::get('/demo-response', function(){
-    // $content='<h2>Học lập trình</h2>';
-    // $content='Học lập trình';
-    // $content = json_decode(json_encode([
-    //     'Item 1',
-    //     'Item 1',
-    //     'Item 1'
-    // ]));
-    // $response=(new Response($content))->header('Content-type','text/plain');
-    // $response=(new Response($content))->header('Content-type','aplication/json');
-    $response=(new Response())->cookie('unicode','Training',30);
-    // dd($response);
-    // $response=response('HỌC LẬP TRÌNH',201);
-    // return new Response('HỌC LẬP TRÌNH',201);
-//     return $response;
+// Route::get('/lay-thong-tin',[HomeController::class,'getArr']);
+// Route::get('demo-response-2', function(Request $request){
+//     return $request->cookie('unicode');
 // });
-Route::get('demo-response-2', function(Request $request){
-    return $request->cookie('unicode');
-});
+// Route::get('demo-response', function(){
+//     $contentArr=['name'=>'Unicode','version'=>'laravel 8','lesson'=>'HTTP Response Laravel'];
+//     return response()->json($contentArr)->header('Api-Key','123');
+// });
 Route::get('demo-response', function(){
-    $response=response()->view('clients.demo-test',[
-        'title'=>'Học lập trình',
-
-    ],201)->header('Content-type','aplication/json');
-
-    return $response;
+    echo old('username');
+    return view('clients.demo-test');
+})->name('demo-response');
+Route::post('demo-response', function(Request $request){
+    if(!empty($request->username)){
+    //return redirect('demo-response');
+        return back()->withInput()->with('mess','Validate thành công');
+    }
+    return redirect(route('demo-response'))->with('mess','Validate không thành công');
 });
 // Route::middleware('auth.admin')->prefix('categories')->group(function(){
 //     //Danh sách chuyên mục
