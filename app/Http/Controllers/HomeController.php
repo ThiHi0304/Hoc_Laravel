@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use App\Http\Requests\ProductRequest;   
 
 class HomeController extends Controller
 {
@@ -23,23 +24,25 @@ class HomeController extends Controller
 
         return view('clients.add',$this->data);
     }
-    public function postAdd(Request $request){
-        $rule=[
-            'product_name'=>'required|min:6',
-            'product_price'=>'required|integer'
-        ];
+    public function postAdd(ProductRequest $request){
+        dd($request);
+        // $rule=[
+        //     'product_name'=>'required|min:6',
+        //     'product_price'=>'required|integer'
+        // ];
         // $message=[
         //     'product_name.required'=>'Trường :attribute bắt buộc phải nhập',
         //     'product_name.min'=>'Sản phẩm không đưuọc nhỏ hơn :min kí tự',
         //     'product_price.required'=>'Gía sản phẩm bắt buộc phải nhập',
         //     'product_price.integer'=>'Gía sản phẩm phải là con số'
         // ];
-        $message=[
-            'required'=>'Trường :attribute bắt buộc phải nhập',
-            'min'=>'Trường :attribute không đưuọc nhỏ hơn :min kí tự',  
-            'integer'=>'Trường :attribute phải là con số'
-        ];
-        $request->validate($rule,$message);
+        // $message=[
+        //     'product_name.required'=>'Trường :attribute bắt buộc phải nhập',
+        //     'product_name.min'=>'Sản phẩm không đưuọc nhỏ hơn :min kí tự',
+        //     'product_price.required'=>'Gía sản phẩm bắt buộc phải nhập',
+        //     'product_price.integer'=>'Gía sản phẩm phải là con số'
+        // ];
+        // $request->validate($rule,$message);
     }
     public function putAdd(Request $request){
         return "Phương thức put";
