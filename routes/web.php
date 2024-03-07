@@ -63,19 +63,23 @@ use Illuminate\Support\Facades\Redis;
 //  });
 // Route::post('/',[FormController::class,'upload'])->name('form');
 
-// Route::get('/',[HomeController::class,'index'])->name('home');
-// Route::get('/san-pham',[HomeController::class,'products'])->name('product');
-// Route::get('/them-san-pham',[HomeController::class,'getAdd']);
-// // Route::post('/them-san-pham',[HomeController::class,'postAdd']);
-// Route::put('/them-san-pham',[HomeController::class,'putAdd']);
-// Route::get('/demo-response', function(){
-//     $contentArr=[
-//         'name'=>'Học lập trình',
-//         'age'=>'Học lập trình',
-//         'acdemy'=>'Học lập trình'
-//     ];
-//     return $contentArr;
-// });
+Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/san-pham',[HomeController::class,'products'])->name('product');
+Route::get('/them-san-pham',[HomeController::class,'getAdd']);
+// Route::post('/them-san-pham',[HomeController::class,'postAdd']);
+Route::put('/them-san-pham',[HomeController::class,'putAdd']);
+Route::get('/demo-response', function(){
+    $contentArr=[
+        'name'=>'Học lập trình',
+        'age'=>'Học lập trình',
+        'acdemy'=>'Học lập trình'
+    ];
+    return $contentArr;
+});
+
+Route::get('download-image',[HomeController::class,'downloadImage'])->name('download-image');
+Route::get('download-doc',[HomeController::class,'downloadDoc'])->name('download-doc');
+
 // Route::get('/lay-thong-tin',[HomeController::class,'getArr']);
 // Route::get('demo-response-2', function(Request $request){
 //     return $request->cookie('unicode');
@@ -95,37 +99,8 @@ Route::post('demo-response', function(Request $request){
     }
     return redirect(route('demo-response'))->with('mess','Validate không thành công');
 });
-// Route::middleware('auth.admin')->prefix('categories')->group(function(){
-//     //Danh sách chuyên mục
-//     Route::get('/',[CategoriesController::class,'index'])->name('categories.list');
 
-//     //Lấy chi tiết 1 chuyên mục (Aps dụng show form sửa chuyên mục)
-//     Route::get('/edit/{id}',[CategoriesController::class,'getCategory'])->name('categories.edit');
-    
-//     //Xử lí update chuyên mục
-//     Route::post('/edit/{id}',[CategoriesController::class,'updateCategory']);
-
-//     //Hiển thị form add dữ liệu
-//     Route::get('/add',[CategoriesController::class,'addCategory'])->name('categories.add');
-
-//     //Xử lí thêm chuyên mục
-//     Route::post('/add',[CategoriesController::class,'handleAddCategory']);
-
-//     //Xóa chuyên mục
-//     Route::delete('/delete/{id}',[CategoriesController::class,'deleteCategory'])->name('categories.delete');
+// Route::get('/',function(){
+//     return view('forms');
 // });
-// // Hiển thị form upload
-// Route::get('/upload',[CategoriesController::class,'getFile']);
-// // Xử lí file
-// Route::post('/upload',[CategoriesController::class,'handleFile'])->name('categories.upload');
-
-
-// Route::get('san-pham/{id}',[HomeController::class,'getProductDetail']);
-// //Admin route
-// Route::middleware('auth.admin')->prefix('admin')->group(function(){
-//     Route::get('/',[AdminDashboardController::class,'index']);
-//     Route::resource('products',ProductsController::class)->middleware('auth.admin.product');
-
-// });
-
 

@@ -23,9 +23,20 @@
     {{-- <x-inputs.button />
 
     <x-forms.button /> --}}
+    <p><img src="https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg" alt=""></p>
+    {{-- <p><a href="{{route('download-image').'?image=https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg'}}" class="btn btn-primary">Dowload ảnh</a></p> --}}
+
+    <p><a href="{{route('download-image').'?image='.public_path('storage\avatar2.jpg')}}" class="btn btn-primary">Dowload ảnh</a></p>
+    <p><a href="{{route('download-doc').'?file='.public_path('storage\avatar1.jpg')}}" class="btn btn-primary">Dowload tài liệu</a></p>
+
 @endsection
 
 @section('css')
-
+        <style>
+            img{
+                width: 100%;
+                height: auto;
+            }
+        </style>
 @endsection
 
