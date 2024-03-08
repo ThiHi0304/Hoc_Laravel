@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\ProductRequest;   
 use Illuminate\Support\Facades\Validator; 
-
+use App\Rules\Uppercase;
 class HomeController extends Controller
 {
     public $data= [];
@@ -32,13 +32,21 @@ class HomeController extends Controller
             'product_price'=>'Giá sản phẩm'
         ];
         $rule=[
-            'product_name'=>'required|min:6',
-            'product_price'=>'required|integer'
+            'product_name'=>['required','min:6',new Uppercase],
+            'product_price'=>['required','integer',new Uppercase]
         ];
         $message=[
             'required'=>':attribute bắt buộc phải nhập',
             'min'=>':attribute không đưuọc nhỏ hơn :min kí tự',
+            'integer'=>':attribute phải là số',
+            // 'uppercase'=>':attribute phải viết hoa'
         ];
+        // $message=[
+        //     'product_name.required'=>'Trường :attribute bắt buộc phải nhập',
+        //     'product_name.min'=>'Sản phẩm không đưuọc nhỏ hơn :min kí tự',
+        //     'product_price.required'=>'Gía sản phẩm bắt buộc phải nhập',
+        //     'product_price.integer'=>'Gía sản phẩm phải là con số'
+        // ];
         $validator=Validator::make($request->all(),$rule,$message,$attributes);
         // $validator->validate();
         if($validator->fails()){
@@ -49,12 +57,7 @@ class HomeController extends Controller
             return redirect()->route('product')->with('msg','Validate thành công');
         }
         return back()->withErrors($validator);
-        // $message=[
-        //     'product_name.required'=>'Trường :attribute bắt buộc phải nhập',
-        //     'product_name.min'=>'Sản phẩm không đưuọc nhỏ hơn :min kí tự',
-        //     'product_price.required'=>'Gía sản phẩm bắt buộc phải nhập',
-        //     'product_price.integer'=>'Gía sản phẩm phải là con số'
-        // ];
+
         // $request->validate($rule,$message);
     }
     public function putAdd(Request $request){
