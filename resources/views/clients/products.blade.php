@@ -9,8 +9,11 @@
 @endsection
 
 @section('content')
+@if (session('msg'))
+    <div class="alert alert-success">{{session('msg')}}</div>
+@endif
 <h1>Sản phẩm</h1>
-<x-package-alert></x-package-alert>
+{{-- <x-package-alert></x-package-alert> --}}
 @push('scripts')
   <script>
     console.log('Push lần 2');

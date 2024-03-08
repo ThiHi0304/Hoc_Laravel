@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\ProductRequest;   
+use Illuminate\Support\Facades\Validator; 
 
 class HomeController extends Controller
 {
@@ -24,18 +25,30 @@ class HomeController extends Controller
 
         return view('clients.add',$this->data);
     }
-    public function postAdd(ProductRequest $request){
-        dd($request->all());
-        // $rule=[
-        //     'product_name'=>'required|min:6',
-        //     'product_price'=>'required|integer'
-        // ];
-        // $message=[
-        //     'product_name.required'=>'Trường :attribute bắt buộc phải nhập',
-        //     'product_name.min'=>'Sản phẩm không đưuọc nhỏ hơn :min kí tự',
-        //     'product_price.required'=>'Gía sản phẩm bắt buộc phải nhập',
-        //     'product_price.integer'=>'Gía sản phẩm phải là con số'
-        // ];
+    public function postAdd(Request $request){
+        // dd($request->all());
+        $attributes=[
+            'product_name'=>'Tên sản phẩm',
+            'product_price'=>'Giá sản phẩm'
+        ];
+        $rule=[
+            'product_name'=>'required|min:6',
+            'product_price'=>'required|integer'
+        ];
+        $message=[
+            'required'=>':attribute bắt buộc phải nhập',
+            'min'=>':attribute không đưuọc nhỏ hơn :min kí tự',
+        ];
+        $validator=Validator::make($request->all(),$rule,$message,$attributes);
+        // $validator->validate();
+        if($validator->fails()){
+            $validator->errors()->add('msg','Vui lòng kiểm tra lại dữ liệu');
+            // return 'Validate thất bại';
+        }else{
+            // return 'Validate thành công';
+            return redirect()->route('product')->with('msg','Validate thành công');
+        }
+        return back()->withErrors($validator);
         // $message=[
         //     'product_name.required'=>'Trường :attribute bắt buộc phải nhập',
         //     'product_name.min'=>'Sản phẩm không đưuọc nhỏ hơn :min kí tự',
