@@ -25,7 +25,7 @@ class HomeController extends Controller
         return view('clients.add',$this->data);
     }
     public function postAdd(ProductRequest $request){
-        dd($request);
+        dd($request->all());
         // $rule=[
         //     'product_name'=>'required|min:6',
         //     'product_price'=>'required|integer'

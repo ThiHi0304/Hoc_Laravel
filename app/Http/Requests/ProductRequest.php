@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ProductRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -43,5 +46,28 @@ class ProductRequest extends FormRequest
             'product_name'=>'Tên sản phẩm',
             'product_price'=>'Giá sản phẩm'
         ];
+    }
+    protected function withValidator($validator){
+        $validator->after(function($validator){
+            // if($this->somethingElseIsInvalid()){
+            //     $validator->errors()->add ('msg','Đã có lỗi xảy ra, Vui lòng kiểm tra lại');
+            // }
+            if($validator->errors()->count()>0){
+                $validator->errors()->add ('msg','Đã có lỗi xảy ra, Vui lòng kiểm tra lại');
+            }
+            // dd('ok nhá');
+        });
+    }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'create_at'=>date('Y-m-d H:i:s'),
+        ]);
+    }
+    protected function failedAuthorization()
+    {
+        // throw new AuthorizationException('Bạn đang truy cập vào khu vực cấm');
+        //throw new HttpResponseException(redirect('/')->with('msg','Bạn không có quyền truy cập')->with('type','danger'));
+        throw new HttpResponseException(abort(404));
     }
 }
