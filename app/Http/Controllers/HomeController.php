@@ -32,8 +32,13 @@ class HomeController extends Controller
             'product_price'=>'Giá sản phẩm'
         ];
         $rule=[
-            'product_name'=>['required','min:6',new Uppercase],
-            'product_price'=>['required','integer',new Uppercase]
+            'product_name'=>['required','min:6', function($attribute,$value,$fail){
+                // $this->isUppercase($value, 'Trường :attribute không hợp lệ',$fail);
+                // isUppercase($value, 'Trường :attribute không hợp lệ',$fail);
+
+
+            }],
+            'product_price'=>['required','integer']
         ];
         $message=[
             'required'=>':attribute bắt buộc phải nhập',
@@ -64,6 +69,11 @@ class HomeController extends Controller
         return "Phương thức put";
         dd($request);
     }
+    // public function isUppercase($value,$message,$fail){
+    //     if($value!=mb_strtoupper($value,'UTF-8')){
+    //         $fail($message);
+    //     }
+    // }
     public function getArr(){
         $contentArr=[
             'name'=>'Học lập trình',
