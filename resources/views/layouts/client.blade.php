@@ -33,6 +33,7 @@
     @include('clients.blocks.footer')
     <script>{{asset('assets/clients/js/boostrap.min.css')}}</script>
     <script>{{asset('assets/clients/js/custom.css')}}</script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     @yield('js')    
     @stack('scripts')
 </body>

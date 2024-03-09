@@ -25,45 +25,46 @@ class HomeController extends Controller
 
         return view('clients.add',$this->data);
     }
-    public function postAdd(Request $request){
-        // dd($request->all());
-        $attributes=[
-            'product_name'=>'Tên sản phẩm',
-            'product_price'=>'Giá sản phẩm'
+    public function postAdd(ProductRequest $request)
+    {
+        $rules = [
+            'product_name' => ['required', 'min:6'],
+            'product_price' => ['required', 'integer']
         ];
-        $rule=[
-            'product_name'=>['required','min:6', function($attribute,$value,$fail){
-                // $this->isUppercase($value, 'Trường :attribute không hợp lệ',$fail);
-                // isUppercase($value, 'Trường :attribute không hợp lệ',$fail);
-
-
-            }],
-            'product_price'=>['required','integer']
-        ];
-        $message=[
-            'required'=>':attribute bắt buộc phải nhập',
-            'min'=>':attribute không đưuọc nhỏ hơn :min kí tự',
-            'integer'=>':attribute phải là số',
-            // 'uppercase'=>':attribute phải viết hoa'
-        ];
-        // $message=[
-        //     'product_name.required'=>'Trường :attribute bắt buộc phải nhập',
-        //     'product_name.min'=>'Sản phẩm không đưuọc nhỏ hơn :min kí tự',
-        //     'product_price.required'=>'Gía sản phẩm bắt buộc phải nhập',
-        //     'product_price.integer'=>'Gía sản phẩm phải là con số'
+        // $message = [
+        //     'product_name.required' => 'Tên sản phẩm bắt buộc phải nhập',
+        //     'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min ký tự',
+        //     'product_price.required' => 'giá sản phẩm bắt buộc phải nhập',
+        //     'product_name.integer' => 'Giá sản phẩm phải là số'
         // ];
-        $validator=Validator::make($request->all(),$rule,$message,$attributes);
+        $message = [
+            'required' => ':attribute bắt buộc phải nhập',
+            'min' => ':attribute không được nhỏ hơn :min ký tự',
+            'integer' => ':attribute phải là số',
+            //'uppercase' =>'Trường :attribute phải viết hoa'
+        ];
+        $attribute = [
+            'product_name' => 'Tên sản phẩm',
+            'product_price' => 'Giá sản phẩm'
+        ];
+        // $validator =  Validator::make($request->all(), $rules, $message, $attribute);
         // $validator->validate();
-        if($validator->fails()){
-            $validator->errors()->add('msg','Vui lòng kiểm tra lại dữ liệu');
-            // return 'Validate thất bại';
-        }else{
-            // return 'Validate thành công';
-            return redirect()->route('product')->with('msg','Validate thành công');
-        }
-        return back()->withErrors($validator);
+       // $request->validate($rules,$message);
 
-        // $request->validate($rule,$message);
+        return response()->json(['status'=>'success']);
+
+        // $validator->validate();
+        // if ($validator->fails()) {
+        //     $validator->errors()->add('msg', 'Vui lòng kiểm tra dữ liệu');
+        //     //return 'Thất bại';
+        // } else {
+        //     // return 'Thành công';
+        //     return redirect()->route('product')->with('msg', 'Validate thành công');
+        // };
+
+        // return back()->withErrors($validator);
+        // $request->validate($rules,$message);
+        // Xử lý việc thêm dữ liệu vào database
     }
     public function putAdd(Request $request){
         return "Phương thức put";
