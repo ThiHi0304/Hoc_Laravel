@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\ProductRequest;   
 use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\DB;
+// use DB;
 use App\Rules\Uppercase;
 class HomeController extends Controller
 {
@@ -13,7 +15,14 @@ class HomeController extends Controller
     public function index(){
         $this->data['title']='Đào tạo lập trình web';
         $this->data['message']='Đăng kí tài khoản thành công';
-        return view('clients.home',$this->data);
+        // return view('clients.home',$this->data);
+        // $user=DB::select('SELECT *FROM users WHERE id>?',[1]);
+        $user=DB::select('SELECT *FROM users WHERE email=:email',[
+            'email'=>'hoangan@gmail.com'
+        ]);
+
+        dd($user);
+        return "Hello";
     }
     public function products(){
         $this->data['title']='Sản phẩm';

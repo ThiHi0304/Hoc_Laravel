@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormController;
 use Illuminate\Support\Facades\Redis;
+use App\Http\Controllers\UsersController;
 
 // use App\Models\User;
 /*
@@ -104,3 +105,7 @@ Route::post('demo-response', function(Request $request){
 //     return view('forms');
 // });
 
+//DANH SÁCH NGƯỜI DÙNG
+Route::prefix('users')->group(function(){
+    Route::get('/',[UsersController::class,'index']);
+});
