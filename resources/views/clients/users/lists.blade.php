@@ -8,6 +8,8 @@
     <div class="alert alert-success">{{session('msg')}}</div>
 @endif
 <h1>{{$title}}</h1>
+<a href="{{route('users.add')}}" class="btn btn-primary">Thêm người dùng</a>
+<hr>
 <table class="table table-bordered">
     <thead>
         <th width="5%">STT</th>
@@ -16,8 +18,8 @@
         <th width="10%">Thời gian</th>
     </thead>
     <tbody>
-        @if(!empty($users))
-        @foreach ($users as $key=>$item)
+        @if(!empty($usersList))
+        @foreach ($usersList as $key=>$item)
         <tr>
             <td>{{$key+1}}</td>
             <td>{{$item->fullname}}</td>
