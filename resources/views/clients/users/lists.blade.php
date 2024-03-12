@@ -16,6 +16,8 @@
         <th>Tên</th>
         <th>Email</th>
         <th width="10%">Thời gian</th>
+        <th width='5%'>Sửa</th>
+        <th width='5%'>Xóa</th>
     </thead>
     <tbody>
         @if(!empty($usersList))
@@ -25,11 +27,17 @@
             <td>{{$item->fullname}}</td>
             <td>{{$item->email}}</td>
             <td>{{$item->create_at}}</td>
+            <td>
+                <a href="{{route('users.edit', ['id' => $item->id])}}" class="btn btn-warning btn-sm">Sửa</a>
+            </td>
+            <td>
+                <a href="" class="btn btn-danger btn-sm">Sửa</a>
+            </td>
         </tr>
         @endforeach
         @else
         <tr>
-            <td colspan="4">
+            <td colspan="6">
                 KHông có người dùng
             </td>
         </tr>
