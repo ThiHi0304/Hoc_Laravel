@@ -32,4 +32,24 @@ class Users extends Model
         return DB::statement($sql);
 
     }
+    public function learnQueryBuiler(){
+        $lists = DB::table($this->table)
+        ->select('fullname','email')
+     //    ->where('id','<>',2)
+         ->where('id','>=',2)
+         ->where('id','<=',1)
+       //   ->where([
+       //     [
+       //         'id', '>=', 19
+       //     ],
+       //     [
+       //         'id', '<=', 20
+       //     ]
+       //   ])
+        ->get();
+       //  dd($lists);
+        // Lấy 1 bản ghi đầu tiên của table lấy thông tin chi tiết
+        $detail = DB::table($this->table)->first();
+ 
+     }
 }
