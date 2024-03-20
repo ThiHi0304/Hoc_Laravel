@@ -33,23 +33,26 @@ class Users extends Model
 
     }
     public function learnQueryBuiler(){
-        $lists = DB::table($this->table)
-        ->select('fullname','email')
-     //    ->where('id','<>',2)
-         ->where('id','>=',2)
-         ->where('id','<=',1)
-       //   ->where([
-       //     [
-       //         'id', '>=', 19
-       //     ],
-       //     [
-       //         'id', '<=', 20
-       //     ]
-       //   ])
+        // lấy tất cả bản ghi của table
+        $id=20;
+       $lists = DB::table($this->table)
+       ->select('fullname','email','id','update_at')
+        // ->where('id',2)
+        // ->where(function($query) use ($id){
+        //     $query->where('id', '<',$id)->orWhere('id','>',$id);
+        //     $query->orWhere('id','>',$id);
+        // })
+    //    ->where('fullname','like','%Xuan ca%')
+    //    ->whereBetween('id',[1,4])
+        // ->whereNotIn('id',[7,9])
+        ->whereNotNull('update_at')
+        // ->whereIn('id',[7,9])
         ->get();
-       //  dd($lists);
-        // Lấy 1 bản ghi đầu tiên của table lấy thông tin chi tiết
-        $detail = DB::table($this->table)->first();
+        $sql = DB::getQueryLog();
+        dd($sql);
+       
+       // Lấy 1 bản ghi đầu tiên của table lấy thông tin chi tiết
+       $detail = DB::table($this->table)->first();
  
      }
 }
