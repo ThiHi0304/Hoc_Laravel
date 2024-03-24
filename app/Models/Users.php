@@ -71,40 +71,55 @@ class Users extends Model
             ->take(2)
             ->skip(2)
             ->get();
-        // $status = DB::table('users')->insert([
-        //     'fullname' => 'Nguyễn Văn A',
-        //     'email' => 'nguyenvana@gamil.com',
-        //     'group_at' => 1,
-        //     'create_at' =>date('Y-m-d H:i:s')
-        // ]);
-        // dd($status);
-        // $lastId = DB::getPdo()->lastInsertId();
+                    // $status = DB::table('users')->insert([
+            //     'fullname' => 'Nguyễn Văn A',
+            //     'email' => 'nguyenvana@gamil.com',
+            //     'group_at' => 1,
+            //     'create_at' =>date('Y-m-d H:i:s')
+            // ]);
+            // dd($status);
+            // $lastId = DB::getPdo()->lastInsertId();
 
-        // $lastId = DB::table('users')->insertGetId([
-        //     'fullname' => 'Nguyễn Văn A',
-        //     'email' => 'nguyenvana@gamil.com',
-        //     'group_at' => 1,
-        //     'create_at' =>date('Y-m-d H:i:s')
-        // ]);
+            // $lastId = DB::table('users')->insertGetId([
+            //     'fullname' => 'Nguyễn Văn A',
+            //     'email' => 'nguyenvana@gamil.com',
+            //     'group_at' => 1,
+            //     'create_at' =>date('Y-m-d H:i:s')
+            // ]);
 
-        // $status = DB::table('users')
-        // ->where('id',3)
-        // ->update([
-        //     'fullname' => 'Nguyễn Văn B',
-        //     'email' => 'nguyenvanb@gmail.com',
-        //     'update_at' => 'Y-m-d H:i:s' 
-        // ]);
+            // $status = DB::table('users')
+            // ->where('id',3)
+            // ->update([
+            //     'fullname' => 'Nguyễn Văn B',
+            //     'email' => 'nguyenvanb@gmail.com',
+            //     'update_at' => 'Y-m-d H:i:s' 
+            // ]);
 
-        // $status = DB::table('users')
-        // ->where('id',3)
-        // ->delete();
+            // $status = DB::table('users')
+            // ->where('id',3)
+            // ->delete();
 
-        // đếm số bảng ghi
-        $count = DB::table('users')->where('id', '>', 2)
-            ->count();
-        $sql = DB::getQueryLog();
-        dd($sql);
-        // Lấy 1 bản ghi đầu tiên của table lấy thông tin chi tiết
-        $detail = DB::table($this->table)->first();
+            // đếm số bảng ghi
+            // $count = DB::table('users')->where('id','>',2)
+            //     ->count();
+            $lists =  DB::table('users')
+            //   ->selectRaw('fullname','email','c')
+                // ->select(
+                //     DB::raw('fullname','email')
+                // )
+                // ->groupBy('email')
+                //->where(DB::raw('id','>',3))
+                ->selectRaw('fullname,email')
+                // ->whereRaw('id>3')
+                // ->where('id','>',2)
+                // ->orderByRaw('create_at DESC,update_at ASC')
+                // ->orderByRaw('email,fullname')
+                // ->having('email_count','>=',2)
+                ->get();
+    
+                $sql = DB::getQueryLog();
+                dd($sql);
+            // Lấy 1 bản ghi đầu tiên của table lấy thông tin chi tiết
+            $detail = DB::table($this->table)->first();
+        }
     }
-}
