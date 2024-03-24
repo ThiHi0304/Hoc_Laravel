@@ -32,27 +32,43 @@ class Users extends Model
         return DB::statement($sql);
 
     }
-    public function learnQueryBuiler(){
+    public function learnQueryBuiler()
+    {
         // lấy tất cả bản ghi của table
-        $id=20;
-       $lists = DB::table($this->table)
-       ->select('fullname','email','id','update_at')
+        $id = 20;
+        // $lists = DB::table($this->table)
+        //     ->select('fullname', 'email','update_at','create_at')
         // ->where('id',2)
         // ->where(function($query) use ($id){
         //     $query->where('id', '<',$id)->orWhere('id','>',$id);
         //     $query->orWhere('id','>',$id);
         // })
-    //    ->where('fullname','like','%Xuan ca%')
-    //    ->whereBetween('id',[1,4])
-        // ->whereNotIn('id',[7,9])
-        ->whereNotNull('update_at')
-        // ->whereIn('id',[7,9])
+        // ->where('fullname','like','%Hi Thanh%')
+        //    ->whereBetween('id',[1,4])
+        // ->whereIn('id',[1,4])
+        // ->whereDate('update','2023-03-02')
+        // ->whereMonth('create_at','02')
+        // ->whereDay('create_at','18')
+        // ->whereColumn('create_at','>','update_at'
+        //     ->get();
+        //Join 2 bảng lại với nhau
+        $lists =  DB::table('users')
+        // ->select('users.*', 'groups.name as group_name')
+        // ->rightJoin('groups', 'users.group_id', '=', 'groups.id');
+        //->orderBy('create_at','desc');
+        // ->orderBy('id','desc');
+        // ->inRandomOrder();
+        // ->select(DB::raw('count(id) as email_count'), 'email')
+        // ->groupBy('email')
+        // ->having('email_count')
+        // ->limit(2)
+        // ->offset(1)
+        ->take(2)
+        ->skip(2)
         ->get();
-        $sql = DB::getQueryLog();
-        dd($sql);
-       
-       // Lấy 1 bản ghi đầu tiên của table lấy thông tin chi tiết
-       $detail = DB::table($this->table)->first();
- 
-     }
+    $sql = DB::getQueryLog();
+    dd($sql);
+    // Lấy 1 bản ghi đầu tiên của table lấy thông tin chi tiết
+    $detail = DB::table($this->table)->first();
+}
 }
