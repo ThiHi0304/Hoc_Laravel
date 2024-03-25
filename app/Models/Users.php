@@ -10,9 +10,17 @@ class Users extends Model
 {
     use HasFactory;
     protected $table = 'users';
-    public function getAllUsers()
+    public function getAllUser($filter = [])
     {
-        $users = DB::select('SELECT * FROM users ORDER BY create_at DESC');
+        // $users = DB::select('SELECT * from users ORDER BY create_at DESC');
+        $users = DB::table($this->table)
+        ->select('users.*','groups.name as group_name')
+        ->join('groups','users.group_id','=','groups.id')
+        ->orderBy('users.create_at','DESC');
+        if (!empty($filter)){
+            $users = $users->where($filter);
+        }
+        $users = $users->get();
         return $users;
     }
     public function addUser($data)

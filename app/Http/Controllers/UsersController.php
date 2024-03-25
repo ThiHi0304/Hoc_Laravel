@@ -12,15 +12,29 @@ class UsersController extends Controller
     public function __construct() {
         $this->users=new Users();
     }
-    public function index()
-    {
-        // $statement=$this->users->statemenUser("DELETE FROM users");
-        // dd($statement);
-        $title = 'Danh sách người dùng';
-        $this->users->learnQueryBuiler();
-        $usersList= $this->users->getAllUsers();
-        return view('clients.users.lists', compact('title', 'usersList'));
-    }
+    public function index(Request $request)
+   {
+      $title = 'Danh sách người dùng';
+      // $this->users->learnQueryBuiler();
+      $filter = [];
+      if (!empty($request->status)) {
+         $status = $request->status;
+         if ($status == "active") {
+            $status = 1;
+         } else {
+            $status = 0;
+         }
+         $filter[] = ['users.status', '=', $status];
+      }
+
+      if (!empty($request->group_id)) {
+         $groupId = $request->group_id;
+      
+         $filter[] = ['users.group_id', '=', $$groupId];
+      }
+      $userList = $this->users->getAllUser($filter);
+      return view('client.users.lists', compact('title', 'userList'));
+   }
     public function add(){
         $title='Thêm người dùng';
         return view('clients.users.add', compact('title'));
