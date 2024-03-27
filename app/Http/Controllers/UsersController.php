@@ -34,8 +34,7 @@ class UsersController extends Controller
       }
       $userList = $this->users->getAllUser($filter);
       return view('client.users.lists', compact('title', 'userList'));
-   }
-    public function add(){
+   }    public function add(){
         $title='Thêm người dùng';
         return view('clients.users.add', compact('title'));
     }
